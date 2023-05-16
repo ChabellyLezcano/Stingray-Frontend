@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xl-5 order-last">
+        <div class="d-flex justify-content-center ">
+          <img src="../../../../assets/images/Logo.png" alt="logo" class="img-fluid" style="width: 50%;">
+        </div>
+        <div class="d-flex justify-content-center">
+          <form autocomplete="off" [formGroup] = "miFormulario" (ngSubmit)="registro()">
+            <div class="form-group mt-4" style="width: 20rem;">
+              <span class="p-float-label">
+                <input id="nombre" type="text" name="nombre" formControlName="nombre" class="form-control"/>
+                <label for="nombre" class="fixed-label">Nombre de la Clínica</label>
+              </span>
+            </div>
+
+           
+            <div class="form-group mt-5">
+              <span class="p-float-label">
+                <input id="email" type="email" name="email" formControlName="email" class="form-control"/>
+                <label for="email" class="fixed-label">Email</label>
+              </span>
+            </div>
+            <div class="form-group mt-5" style="width: 20rem;">
+              <span class="p-float-label">
+                <input id="password" type="password" name="password" formControlName="password" class="form-control"/>
+                <label for="password" class="fixed-label">Contraseña</label>
+              </span>
+            </div>
+            <div class="form-group mt-5" style="width: 20rem;">
+              <span class="p-float-label">
+                <input id="validatePassword" type="password" name="validatePassword" formControlName="password" class="form-control"/>
+                <label for="validatePassword" class="fixed-label">Repetir Contraseña</label>
+              </span>
+            </div>
+  
+  
+            <div class="d-flex justify-content-center mt-5">
+              <button type="submit" class="btn btn-primary rounded-pill" [disabled]="miFormulario.invalid">Registrar</button>
+            </div>
+            <div class="d-flex justify-content-center mt-4 text-center mb-4">
+              ¿Ya tienes cuenta? <a routerLink="/auth/login" class="px-2" href="#">Inicia sesión</a>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-8 col-xl-7">
+        <div class="d-flex justify-content-center align-items-center" style="height: 100vh">
+          <img src="../../../../assets/images/f1912b2f5a458bc1b5e8fedcaed627c6.jpg" alt="photo" style="max-width: 100%; border-radius: 10%;">
+        </div>      
+      </div>
+    </div>
+  </div>  

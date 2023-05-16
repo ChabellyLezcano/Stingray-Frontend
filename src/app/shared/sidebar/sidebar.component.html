@@ -1,0 +1,44 @@
+<p-sidebar
+  [(visible)]="visibleSidebar"
+  [showCloseIcon]="true"
+  [blockScroll]="true"
+>
+  <ng-template pTemplate="header">
+    <img
+      class="sidebar-logo"
+      src="../../../assets/images/Logo2.png"
+      style="width: 240px"
+      alt="Logo de la empresa"
+    />
+  </ng-template>
+  <ng-template pTemplate="content"
+    ><div class="position-sticky">
+      <div class="list-group list-group-flush mx-1 mt-2 mb-2">
+        <a
+          routerLink="/dashboard"
+          class="list-group-item list-group-item-action py-2 ripple mb-2"
+          aria-current="true"
+          style="margin-top: 10px; border: none; font-size: 19"
+        >
+          <i class="pi pi-fw pi-home me-3"></i><span>Inicio</span>
+        </a>
+        <a
+          routerLink="/dashboard/doctor"
+          class="list-group-item list-group-item-action py-2 ripple mb-2"
+          (click)="toggleSidebar()"
+          style="margin-top: 10px; border: none"
+        >
+          <i class="pi pi-fw pi pi-briefcase me-3"></i><span>Doctor</span>
+        </a>
+      </div>
+    </div></ng-template
+  >
+</p-sidebar>
+
+<button
+  pButton
+  type="button"
+  (click)="toggleSidebar()"
+  icon="pi pi-bars"
+  class="rounded-pill m-2"
+></button>

@@ -1,0 +1,289 @@
+/* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import '~primeicons/primeicons.css';
+
+
+.button-container {
+display: flex;
+justify-content: space-between;
+padding: 2px;
+
+}
+
+.label-floating {
+  position: absolute;
+  pointer-events: none;
+  top: -8px;
+  left: 10px;
+  font-size: 12px;
+  transition: all 0.2s ease-out;
+}
+
+.floating {
+  top: -20px;
+  left: 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 15px;
+  width: 70%;
+  padding-top: 16px;
+}
+
+.card-body-perfil {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+
+
+.p-float-label {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.custom-input {
+  font-size: 14px;
+  border-radius: 0.4rem;
+  border: 1px solid #d3d3d3;
+  height: 45px;
+  width: 300px;
+  border-radius: 50px;
+}
+
+.custom-input {
+  font-size: 14px;
+  border: 1px solid #d3d3d3;
+  height: 45px;
+  width: 300px;
+  border-radius: 50px;
+}
+
+
+.custom-input-m {
+  font-size: 14px;
+  border-radius: 0.4rem;
+  border: 1px solid #d3d3d3;
+  height: 45px;
+  width: 460px;
+  padding: 22px;
+  border-radius: 50px;
+}
+
+.custom-input-lg {
+  font-size: 14px;
+  border-radius: 0.4rem;
+  border: 1px solid #d3d3d3;
+  height: 45px;
+  width: 630px;
+  font-size: 16px;
+  line-height: 1.5;
+  border-radius: 50px;
+  border: 1px solid #ced4da;
+  background-color: #f8f9fa;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+/*Login*/
+.form-floating {
+    position: relative;
+  }
+  
+  .form-floating label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: text;
+    font-size: 0.8rem;
+    opacity: 0.5;
+    transform-origin: 0 0;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  
+  .form-floating input:focus + label,
+  .form-floating input:not(:placeholder-shown) + label {
+    transform: translateY(-1.5rem) scale(0.8);
+    opacity: 1;
+  }
+
+  .custom-class1 {
+    margin-bottom: 35px;
+  }
+  
+
+  .custom-class {
+    margin-bottom: 50px;
+  }
+  
+  .custom-class input {
+    width: 100%;
+  }
+
+  .p-inputtext:focus ~ label {
+    top: -1.5rem !important;
+    font-size: 0.8rem !important;
+    color: #999999 !important;
+  }
+            
+            
+  .p-float-label {
+    position: relative;
+  }
+  .fixed-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-50%);
+  }
+  .form-control:focus ~ .fixed-label,
+  .form-control:not(:placeholder-shown) ~ .fixed-label {
+    font-size: 0.8rem;
+    top: -1rem;
+    left: 0.5rem;
+    color: #092c52;
+  }
+
+  .input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-with-icon input {
+    padding-right: 2.5rem;
+  }
+  
+  .input-with-icon button {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /*Headbar*/
+  .white-button {
+    background-color: #f8f9fa;
+    border-color:#f8f9fa;
+    color: rgb(103, 103, 103);
+  }
+
+  .logout-icon {
+    color: red;
+  }
+  
+  .logout-icon .pi-sign-out {
+    color: red !important;
+  }
+
+  .logout-icon .p-menuitem-text {
+    color: red !important;
+    }
+
+  .username {
+    font-size: 18px;
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  .avatar {
+    margin-right: 10px;
+    width: 50px;
+  }
+
+  .my-menubar {
+    height: 10rem;
+  }
+  
+/*Sidebar*/
+  .p-sidebar .p-sidebar-header {
+    padding: 0.2rem;
+}
+
+  .sidebar-logo {
+    background-color: #ffffff;
+    color: white;
+    display: flex;
+    align-items: center;
+  }
+  .sidebar-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  .sidebar-header img {
+    width: 230px;
+    margin-right: 1rem;
+  }
+
+  .list-group-item {
+  font-size: 1.16rem; /* Tamaño de fuente */
+  padding: 0.5rem 0.75rem; /* Espaciado interno */
+}
+
+.list-group-item .pi {
+  font-size: 1.2rem; /* Tamaño de los iconos */
+  margin-right: 0.5rem; /* Espaciado entre el icono y el texto */
+}
+
+.list-group-item-action {
+  border: none;
+}
+
+.list-group-item-action {
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.list-group-item-action:first-child {
+  box-shadow: none;
+}
+
+.list-group-item-action + .list-group-item-action {
+  border-top: none;
+}
+
+/*Tabla*/
+.custom-table {
+  width: 98%;
+  margin: 0 auto;
+}
+
+/*Paciente*/
+.imagen-banner {
+  position: relative;
+}
+
+.nombre-paciente-container {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(108, 107, 107, 0.5);
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.8rem;
+  width: max-content;
+}
+
+.nombre-paciente {
+  color: white;
+  font-size: 24px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.border-radius {
+  border-radius: 10px;
+}

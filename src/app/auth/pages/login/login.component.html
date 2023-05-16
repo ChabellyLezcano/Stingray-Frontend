@@ -1,0 +1,55 @@
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-6 col-lg-8 col-xl-7 order-last">
+        <div class="d-flex justify-content-center align-items-center" style="height: 100vh">
+          <img src="../../../../assets/images/foto1.jpg" alt="photo" style="max-width: 100%; border-radius: 10%;">
+        </div>      
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-4 col-xl-5">
+        <div class="d-flex justify-content-center mt-3">
+          <img src="../../../../assets/images/Logo.png" alt="logo" class="img-fluid" style="width: 50%;">
+        </div>
+        <div class="d-flex justify-content-center mt-2">
+          <form autocomplete="off" [formGroup] = "miFormulario">
+            <div class="form-group mt-2">
+              <span class="p-float-label">
+                <input id="email" type="email" name="email" formControlName="email" class="form-control"/>
+                <label for="email" class="fixed-label">Email</label>
+              </span>
+            </div>
+            <div class="form-group mt-5" style="width: 20rem;">
+              <span class="p-float-label">
+                <div class="input-with-icon">
+                  <input id="password" type="{{ showPassword ? 'text' : 'password' }}" name="password" formControlName="password" class="form-control" />
+                  <button class="btn btn-icon" (click)="togglePasswordVisibility()"  style="outline: white; box-shadow: none;">
+                    <i class="pi" [ngClass]="{'pi-eye': !showPassword, 'pi-eye-slash': showPassword}"></i>
+                  </button>
+                  <label for="password" class="fixed-label">Contraseña</label>
+                </div>
+             
+              </span>
+            </div>
+            
+         <div class="d-flex justify-content-between mt-5 align-items-center">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" formControlName="rememberMe" id="rememberMe">
+                <div class="form-check-label" for="rememberMe">
+                  Recuérdame
+                </div>
+              </div>
+              <a href="#" class="text-secondary">   ¿Olvidaste tu contraseña?</a>
+            </div>
+            
+            <div class="d-flex justify-content-center mt-5">
+              <button type="submit" class="btn btn-primary rounded-pill" (click)="login()">Iniciar Sesión</button>
+            </div>
+            <div class="d-flex justify-content-center mt-5 text-center">
+              ¿No tienes cuenta?  <a class="px-2" routerLink="/auth/registro">Regístrate</a>
+            </div>
+           
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

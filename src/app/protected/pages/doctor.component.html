@@ -1,0 +1,218 @@
+<body
+  style="
+    margin: 0;
+    background-color: #eaf9ff;
+    background-repeat: repeat;
+    padding: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    background-attachment: fixed;
+    overflow-x: hidden;
+    height: 100vh;
+  "
+>
+  <app-headbar></app-headbar>
+
+  <div class="card mx-2 my-2 border-0 shadow">
+    <div class="card-body px-4 mx-2">
+      <div class="d-flex align-items-center justify-content-between">
+        <h2>Pacientes</h2>
+        <p-breadcrumb
+          [model]="breadcrumbItems"
+          class="max-w-full"
+        ></p-breadcrumb>
+      </div>
+    </div>
+    <div
+      class="py-2 mx-4"
+      style="display: flex; justify-content: space-between; align-items: center"
+    >
+      <button
+        pButton
+        pRipple
+        type="button"
+        (click)="showModalCrearDialog()"
+        icon="pi pi-plus"
+        label="Añadir doctor"
+        class="p-button-primary rounded-pill"
+      ></button>
+    </div>
+  </div>
+</body>
+
+
+
+
+
+
+<!--Crear Paciente-->
+<p-dialog
+  [(visible)]="displayCrearDialog"
+  [responsive]="true"
+  [modal]="true"
+  [closable]="true"
+  [closeOnEscape]="true"
+  [dismissableMask]="true"
+  [draggable]="true"
+  (onHide)="onHideCrearDialog()"
+  header="Introduzca los datos necesarios"
+>
+  <div>
+    <form
+      autocomplete="off"
+      [formGroup]="miFormulario"
+      (ngSubmit)="crearDoctor()"
+    >
+      <div class="input-container">
+        <span class="p-float-label">
+          
+<p-fileUpload mode="basic" formControlName="foto" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse"></p-fileUpload>
+          <label for="float-input">Foto</label>
+        </span>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="input-container">
+            <span class="p-float-label">
+              <input
+                id="float-input"
+                type="text"
+                formControlName="cabecera"
+                class="custom-input rounded-pill"
+                pInputText
+              />
+              <label for="float-input">Cabecera</label>
+            </span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="input-container">
+            <span class="p-float-label">
+              <input
+                id="float-input"
+                type="text"
+                formControlName="nombre"
+                class="custom-input rounded-pill"
+                pInputText
+              />
+              <label for="float-input">Nombre</label>
+            </span>
+          </div>
+        </div>
+        
+      </div>
+
+      <div class="input-container">
+        <span class="p-float-label">
+          <input
+            id="float-input"
+            type="text"
+            formControlName="apellidos"
+            class="custom-input-lg rounded-pill"
+            pInputText
+          />
+          <label for="float-input">Apellidos</label>
+        </span>
+      </div>
+
+      <div class="input-container">
+        <span class="p-float-label">
+          <input
+            id="float-input"
+            type="email"
+            formControlName="email"
+            class="custom-input-lg rounded-pill"
+            pInputText
+          />
+          <label for="float-input">Email</label>
+        </span>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="input-container">
+            <span class="p-float-label">
+              <input
+                id="float-input"
+                type="text"
+                formControlName="numColegiado"
+                class="custom-input rounded-pill"
+                pInputText
+              />
+              <label for="float-input">Número Colegiado</label>
+            </span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="input-container">
+            <span class="p-float-label">
+              <input
+                id="float-input"
+                type="text"
+                formControlName="telefono_movil"
+                class="custom-input rounded-pill"
+                pInputText
+              />
+              <label for="float-input">Teléfono Móvil</label>
+            </span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col">
+          <div class="input-container">
+            <span class="p-float-label">
+              <input
+                id="float-input"
+                type="text"
+                formControlName="especialidad"
+                class="custom-input rounded-pill"
+                pInputText
+              />
+              <label for="float-input">Especialidad</label>
+            </span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="input-container">
+            <span class="p-float-label">
+              <input
+                id="float-input"
+                type="text"
+                formControlName="dni"
+                class="custom-input rounded-pill"
+                pInputText
+              />
+              <label for="float-input">DNI</label>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-container p-d-flex p-ai-center">
+        <button
+          pButton
+          pRipple
+          icon="pi pi-times"
+          type="button"
+          label="Cancelar"
+          class="p-button-raised p-button-danger rounded-pill"
+          (click)="onHideCrearDialog()"
+        ></button>
+        <button
+          pButton
+          pRipple
+          type="submit"
+          (click)="crearDoctor()"
+          icon="pi pi-check"
+          type="button"
+          label="Guardar"
+          class="p-button-raised p-button-success rounded-pill"
+          [disabled]="miFormulario.invalid"
+        ></button>
+      </div>
+    </form>
+  </div>
+</p-dialog>

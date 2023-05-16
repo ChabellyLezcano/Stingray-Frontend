@@ -1,0 +1,586 @@
+<body
+  style="
+    margin: 0;
+    background-color: #eaf9ff;
+    background-repeat: repeat;
+    padding: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    background-attachment: fixed;
+    overflow-x: hidden;
+    height: 100vh;
+  "
+>
+  <app-headbar></app-headbar>
+
+  <div class="card mx-2 my-2 border-0 shadow">
+    <div class="card-body px-4 mx-2">
+      <div class="d-flex align-items-center justify-content-between">
+        <h2>Pacientes</h2>
+        <p-breadcrumb
+          [model]="breadcrumbItems"
+          class="max-w-full"
+        ></p-breadcrumb>
+      </div>
+    </div>
+
+    <div
+      class="py-2 mx-4"
+      style="display: flex; justify-content: space-between; align-items: center"
+    >
+      <button
+        pButton
+        pRipple
+        type="button"
+        (click)="showModalCrearDialog()"
+        icon="pi pi-plus"
+        label="Añadir paciente"
+        class="p-button-primary rounded-pill"
+      ></button>
+      <div
+        class="p-inputgroup"
+        style="display: flex; align-items: center; flex: 0.3"
+      >
+        <input
+          type="text"
+          pInputText
+          placeholder="Buscar..."
+          [(ngModel)]="globalFilter"
+          (input)="applyGlobalFilter()"
+          class="rounded-pill"
+          style="max-width: 400px; text-align: left"
+        />
+        <span class="p-input-icon-right">
+          <i class="pi pi-search"></i>
+        </span>
+      </div>
+    </div>
+    <!--Tabla tratamientos-->
+    <p-table
+      class="py-4 custom-table"
+      [value]="pacientes"
+      [paginator]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[5, 10, 20]"
+      [globalFilterFields]="['nombre', 'categoria', 'precio']"
+      [sortMode]="'multiple'"
+      [sortField]="'nombre'"
+      [sortOrder]="1"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th pSortableColumn="nombre">
+            Nombre
+            <span
+              class="pi"
+              [ngClass]="actualizarIconoOrden('nombre')"
+              (click)="
+                ordenAscendente = !ordenAscendente;
+                sortOrder = ordenAscendente ? 1 : -1;
+                sortField = 'nombre'
+              "
+            ></span>
+          </th>
+          <th pSortableColumn="apellidos">
+            Nombre
+            <span
+              class="pi"
+              [ngClass]="actualizarIconoOrden('apellidos')"
+              (click)="
+                ordenAscendente = !ordenAscendente;
+                sortOrder = ordenAscendente ? 1 : -1;
+                sortField = 'apellidos'
+              "
+            ></span>
+          </th>
+          <th pSortableColumn="email">
+            Categoría
+            <span
+              class="pi"
+              [ngClass]="actualizarIconoOrden('email')"
+              (click)="
+                ordenAscendente = !ordenAscendente;
+                sortOrder = ordenAscendente ? 1 : -1;
+                sortField = 'email'
+              "
+            ></span>
+          </th>
+          <th pSortableColumn="telefono">
+            Precio
+            <span
+              class="pi"
+              [ngClass]="actualizarIconoOrden('telefono')"
+              (click)="
+                ordenAscendente = !ordenAscendente;
+                sortOrder = ordenAscendente ? 1 : -1;
+                sortField = 'telefono'
+              "
+            ></span>
+          </th>
+          <th style="padding-left: 4rem">Acción</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-paciente>
+        <tr>
+          <td>{{ paciente.nombre }}</td>
+          <td>{{ paciente.apellidos }}</td>
+          <td>{{ paciente.email }}</td>
+          <td>{{ paciente.telefono_movil }}</td>
+          <td style="vertical-align: left">
+            <button
+              pButton
+              icon="pi pi-pencil"
+              class="p-button-success rounded-pill"
+              (click)="showModalEditarDialog(paciente)"
+            ></button>
+            <button
+              pButton
+              icon="pi pi-trash"
+              class="p-button-danger rounded-pill mx-2"
+              (click)="borrarPaciente(paciente._id)"
+            ></button>
+            <button
+              pButton
+              icon="pi pi-eye"
+              class="p-button-primary rounded-pill"
+              (click)="showModalVerDialog(paciente)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</body>
+
+<!--Crear Paciente-->
+<p-dialog
+  [(visible)]="displayCrearDialog"
+  [responsive]="true"
+  [modal]="true"
+  [closable]="true"
+  [closeOnEscape]="true"
+  [dismissableMask]="true"
+  [draggable]="true"
+  (onHide)="onHideCrearDialog()"
+  header="Introduzca los datos necesarios"
+>
+  <div>
+    <form
+      autocomplete="off"
+      [formGroup]="miFormulario"
+      (ngSubmit)="crearPaciente()"
+    >
+      <div class="row">
+        <div class="col">
+          <div class="input-container">
+            <span class="p-float-label">
+              <input
+                id="float-input"
+                type="text"
+                formControlName="nombre"
+                class="custom-input rounded-pill"
+                pInputText
+              />
+              <label for="float-input">Nombre</label>
+            </span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="input-container">
+            <span class="p-float-label">
+              <input
+                id="float-input"
+                type="text"
+                formControlName="apellidos"
+                class="custom-input rounded-pill"
+                pInputText
+              />
+              <label for="float-input">Apellidos</label>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="input-container">
+        <span class="p-float-label">
+          <input
+            id="float-input"
+            type="email"
+            formControlName="email"
+            class="custom-input-lg rounded-pill"
+            pInputText
+          />
+          <label for="float-input">Email</label>
+        </span>
+      </div>
+      <div class="input-container">
+        <span class="p-float-label">
+          <input
+            type="text"
+            class="custom-input-lg rounded-pill"
+            formControlName="direccion"
+            pInputText
+          />
+          <label for="float-input">Dirección</label>
+        </span>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="input-container">
+            <span class="p-float-label">
+              <input
+                id="float-input"
+                type="text"
+                formControlName="dni"
+                class="custom-input rounded-pill"
+                pInputText
+              />
+              <label for="float-input">DNI</label>
+            </span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="input-container">
+            <span class="p-float-label">
+              <input
+                id="float-input"
+                type="text"
+                formControlName="telefono_movil"
+                class="custom-input rounded-pill"
+                pInputText
+              />
+              <label for="float-input">Teléfono Móvil</label>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <span class="p-float-label">
+          <input
+            type="number"
+            class="custom-input-lg rounded-pill"
+            formControlName="cp"
+            pInputText
+          />
+          <label for="float-input">Código Postal</label>
+        </span>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="input-container">
+            <span class="p-float-label">
+              <input
+                id="float-input"
+                type="text"
+                formControlName="municipio"
+                class="custom-input rounded-pill"
+                pInputText
+              />
+              <label for="float-input">Municipio</label>
+            </span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="input-container">
+            <span class="p-float-label">
+              <input
+                id="float-input"
+                type="text"
+                formControlName="provincia"
+                class="custom-input rounded-pill"
+                pInputText
+              />
+              <label for="float-input">Provincia</label>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="button-container p-d-flex p-ai-center">
+        <button
+          pButton
+          pRipple
+          icon="pi pi-times"
+          type="button"
+          label="Cancelar"
+          class="p-button-raised p-button-danger rounded-pill"
+          (click)="onHideCrearDialog()"
+        ></button>
+        <button
+          pButton
+          pRipple
+          type="submit"
+          (click)="crearPaciente()"
+          icon="pi pi-check"
+          type="button"
+          label="Guardar"
+          class="p-button-raised p-button-success rounded-pill"
+          [disabled]="miFormulario.invalid"
+        ></button>
+      </div>
+    </form>
+  </div>
+</p-dialog>
+
+<!--Ver paciente-->
+<p-dialog
+  [(visible)]="displayVerDialog"
+  [responsive]="true"
+  [modal]="true"
+  [closable]="true"
+  [closeOnEscape]="true"
+  [dismissableMask]="true"
+  [draggable]="true"
+  header="Datos del paciente"
+>
+  <div class="imagen-banner">
+    <img
+      [src]="imagenBanner"
+      alt="Imagen banner"
+      style="width: 400px; width: 92vh; height: 20vh"
+      class="border-radius"
+    />
+    <div class="nombre-paciente-container">
+      <h1
+        class="nombre-paciente"
+        [innerHTML]="
+          pacienteSeleccionado?.nombre + ' ' + pacienteSeleccionado?.apellidos
+        "
+      ></h1>
+    </div>
+  </div>
+
+  <div class="container pt-4">
+    <div class="row bg-light p-2 border-radius">
+      <div class="col-md-12">
+        <div class="p-field mb-4">
+          <label for="email" style="font-weight: bold">Email:</label>
+          <div>{{ pacienteSeleccionado?.email }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row bg-light mt-3 p-2 border-radius">
+      <div class="col-md-6">
+        <div class="p-field mb-4">
+          <label for="dni" style="font-weight: bold">DNI:</label>
+          <div>{{ pacienteSeleccionado?.dni }}</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="p-field mb-4">
+          <label for="telefono_movil" style="font-weight: bold"
+            >Teléfono móvil:</label
+          >
+          <div>{{ pacienteSeleccionado?.telefono_movil }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row bg-light mt-3 p-2 border-radius">
+      <div class="col-md-12">
+        <div class="p-field mb-4">
+          <label for="direccion" style="font-weight: bold">Dirección:</label>
+          <div>
+            {{ pacienteSeleccionado?.direccion }},
+            {{ pacienteSeleccionado?.cp }},
+            {{ pacienteSeleccionado?.municipio }},
+            {{ pacienteSeleccionado?.provincia }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-dialog-footer button-container mt-4">
+    <button
+      type="button"
+      class="p-button-raised p-button-primary rounded-pill"
+      pButton
+      icon="pi pi-envelope"
+      label="Enviar email"
+    ></button>
+    <button
+      type="button"
+      class="p-button-raised p-button-secondary rounded-pill"
+      pButton
+      icon="pi pi-times"
+      label="Cerrar"
+      (click)="displayVerDialog = false"
+    ></button>
+  </div>
+</p-dialog>
+
+<!--Editar Paciente-->
+<p-dialog
+  [(visible)]="displayEditarDialog"
+  [responsive]="true"
+  [modal]="true"
+  [closable]="true"
+  [closeOnEscape]="true"
+  [dismissableMask]="true"
+  [draggable]="true"
+  (onHide)="onHideEditarDialog()"
+  header="Editar Paciente"
+>
+  <div>
+    <form
+      autocomplete="off"
+      [formGroup]="miFormulario"
+      (ngSubmit)="editarPaciente()"
+    >
+      <div class="row">
+        <div class="col">
+          <div class="input-container">
+            <span class="p-float-label">
+              <input
+                id="float-input"
+                type="text"
+                formControlName="nombre"
+                class="custom-input rounded-pill"
+                pInputText
+              />
+              <label for="float-input">Nombre</label>
+            </span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="input-container">
+            <span class="p-float-label">
+              <input
+                id="float-input"
+                type="text"
+                formControlName="apellidos"
+                class="custom-input rounded-pill"
+                pInputText
+              />
+              <label for="float-input">Apellidos</label>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="input-container">
+        <span class="p-float-label">
+          <input
+            id="float-input"
+            type="email"
+            formControlName="email"
+            class="custom-input-lg rounded-pill"
+            pInputText
+          />
+          <label for="float-input">Email</label>
+        </span>
+      </div>
+      <div class="input-container">
+        <span class="p-float-label">
+          <input
+            type="text"
+            class="custom-input-lg rounded-pill"
+            formControlName="direccion"
+            pInputText
+          />
+          <label for="float-input">Dirección</label>
+        </span>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="input-container">
+            <span class="p-float-label">
+              <input
+                id="float-input"
+                type="text"
+                formControlName="dni"
+                class="custom-input rounded-pill"
+                pInputText
+              />
+              <label for="float-input">DNI</label>
+            </span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="input-container">
+            <span class="p-float-label">
+              <input
+                id="float-input"
+                type="text"
+                formControlName="telefono_movil"
+                class="custom-input rounded-pill"
+                pInputText
+              />
+              <label for="float-input">Teléfono móvil</label>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="input-container">
+            <span class="p-float-label">
+              <input
+                id="float-input"
+                type="text"
+                formControlName="cp"
+                class="custom-input-lg rounded-pill"
+                pInputText
+              />
+              <label for="float-input">Código Postal</label>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="row">
+        <div class="col">
+          <div class="input-container">
+            <span class="p-float-label">
+              <input
+                id="float-input"
+                type="text"
+                formControlName="provincia"
+                class="custom-input rounded-pill"
+                pInputText
+              />
+              <label for="float-input">Provincia</label>
+            </span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="input-container">
+            <span class="p-float-label">
+              <input
+                id="float-input"
+                type="text"
+                formControlName="provincia"
+                class="custom-input rounded-pill"
+                pInputText
+              />
+              <label for="float-input">Provincia</label>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="p-dialog-footer button-container mt-4">
+        <button
+          pButton
+          pRipple
+          icon="pi pi-times"
+          type="button"
+          label="Cancelar"
+          class="p-button-raised p-button-danger rounded-pill"
+          (click)="onHideEditarDialog()"
+        ></button>
+        <button
+          type="submit"
+          pButton
+          label="Guardar"
+          class="custom-button rounded-pill"
+          [disabled]="!miFormulario.valid"
+          (click)="editarPaciente()"
+        ></button>
+      </div>
+    </form>
+  </div>
+</p-dialog>
+<!--Fin Editar Paciente-->

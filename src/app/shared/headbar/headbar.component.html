@@ -1,0 +1,21 @@
+<p-menubar>
+    <ng-template pTemplate="start">
+      <app-sidebar></app-sidebar>
+    </ng-template>
+    <ng-template pTemplate="end">
+      <div class="p-d-flex p-flex-row p-ai-center">
+        <i class="pi pi-envelope icon-envelope" style="font-size: 20px; margin: 15px;"></i>
+        <i class="pi pi-bell icon-bell" style="font-size: 21px; margin: 15px;"></i>
+        <img src="../../../assets/images/avatar.jpg" alt="Avatar" class="avatar" style="margin: 10px;">
+        <span class="username">{{usuario.nombre}}</span>
+       
+        <p-menu #menu [model]="menuItems" [popup]="true" id="logout-menu"></p-menu>
+
+
+        <button type="button" (click)="menu.toggle($event)" class="btn rounded-pill white-button">
+          <i class="pi pi-th-large" style="font-size: 20px;"></i>
+        </button>
+      </div>
+    </ng-template>
+  </p-menubar>
+  
